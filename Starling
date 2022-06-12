@@ -1,8 +1,3 @@
-local RunService = game:GetService("RunService")
-local IsStudio = RunService:IsStudio()
-
-if not IsStudio then
-task.wait()
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Starling v - 0.1", HidePremium = true, SaveConfig = true, ConfigFolder = "OrionTest"})
 local Workspace = game:GetService("Workspace")
@@ -19,6 +14,13 @@ local RemoteFolders = {
     ContextButton = ReplicatedStorage.Shared.Remotes.ContextButton,
     Sync = ReplicatedStorage.Shared.Remotes.ArsenalResync,
 }
+
+local FilterOne = {
+    Orbital,
+    Laser,
+    Cruise
+}
+
 local Auto = Window:MakeTab({
 	Name = "Auto's",
 	Icon = "rbxassetid://4483345998",
@@ -46,13 +48,13 @@ Auto:AddToggle({
     Flag = "Laser"
 })
 
-coroutine.wrap(function()
 while task.wait(0.5) do
-    if OrionLib.Flags["Cruise"].Value == true then
-         print("Cruise Activated.")
     pcall(function()
-for _,Arsenals in ipairs(PropertiesFolders.Structures:GetChildren()) do
-    if Arsenals.Name == "Arsenal" then
+    if OrionLib.Flags["Cruise"].Value == true then
+         -- // CRUISE SPAM
+        for _,Arsenals in ipairs(PropertiesFolders.Structures:GetChildren()) do
+        if Arsenals.Name == "Arsenal" then
+            if Arsenals.TeamColor.BrickColor == PropertiesFolders.LocalPlayer.TeamColor then
         local ButtonPanel = Arsenals.ButtonPanel
         task.wait()
             if ButtonPanel["3"]:FindFirstChild("ContextButton") and ButtonPanel["3"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["3"].ContextButton:GetAttribute("Hint") == "Explosives" then
@@ -64,43 +66,40 @@ for _,Arsenals in ipairs(PropertiesFolders.Structures:GetChildren()) do
             RemoteFolders.Sync:FireServer(Arsenal)
             RemoteFolders.ContextButton:FireServer(ButtonPanel["4"].ContextButton)
             else
-                task.wait()
                 RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
                 ButtonPanel.Back.ContextButton:Fire()
                 RemoteFolders.Sync:FireServer(Arsenal)
+            end
         end
     end
 end
 
-for _,Cruise in pairs(workspace.Structures:GetChildren()) do
+for _,Cruise in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if Cruise.Name == "Arsenal" then
         for _,GetContext in ipairs(Cruise:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
-                task.wait(0.1)
                 if not PropertiesFolders.Character:FindFirstChild("Cruise Missile") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Cruise Missile") then
                 if Check:GetAttribute("Hint") == "Take Cruise Missile" then
                     
-                    RemoteFolders.ContextButton:FireServer(Check)
-                        end
+                    FilterOne.Cruise = Check
+                    
                     end
                 end
             end
         end
+    end
 end
-end)
-end
-end
-end)()
 
-coroutine.wrap(function()
-    while wait(0.5) do
-        if OrionLib.Flags["Orbital"].Value == true then
-            print("Orbital Activated.")
-    pcall(function()
-for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
-    if SSIM.Name == "S.S.I.M." then
-        local ButtonPanel = SSIM.ButtonPanel
+RemoteFolders.ContextButton:FireServer(FilterOne.Cruise)
+-- ============================================================== --
+        
+    elseif OrionLib.Flags["Orbital"].Value == true then
+        -- // ORBITAL SHIELD SPAM
+        for _,OrbitalSSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
+    if OrbitalSSIM.Name == "S.S.I.M." then
+        if OrbitalSSIM.TeamColor.BrickColor == PropertiesFolders.LocalPlayer.TeamColor then
+        local ButtonPanel = OrbitalSSIM.ButtonPanel
         task.wait()
          if ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Tactical Strikes" then
         ButtonPanel["1"].ContextButton:Fire()
@@ -109,41 +108,38 @@ for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
         ButtonPanel["2"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["2"].ContextButton)
         else
-        task.wait()
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
         ButtonPanel.Back.ContextButton:Fire()
         end
+        end
     end
 end
-for _,OS in ipairs(workspace.Structures:GetChildren()) do
-    if OS.Name == "S.S.I.M." then
-        for _,GetContext in pairs(OS:GetDescendants()) do
+
+for _,Orbital in ipairs(PropertiesFolders.Structures:GetChildren()) do
+    if Orbital.Name == "S.S.I.M." then
+        for _,GetContext in ipairs(Orbital:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
-                task.wait(0.1)
                 if not PropertiesFolders.Character:FindFirstChild("Orbital Shield") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Orbital Shield") then
                 if Check:GetAttribute("Hint") == "Take Orbital Shield" then
                     
-                    RemoteFolders.ContextButton:FireServer(Check)
-                        end
+                    FilterOne.Orbital = Check
+                    
                     end
                 end
             end
         end
+    end
 end
-end)
-end
-end
-end)()
 
-coroutine.wrap(function()
-    while wait(0.5) do
-        if OrionLib.Flags["Laser"].Value == true then
-             print("Laser Activated.")
-    pcall(function()
-for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
-    if SSIM.Name == "S.S.I.M." then
-        local ButtonPanel = SSIM.ButtonPanel
+RemoteFolders.ContextButton:FireServer(FilterOne.Orbital)
+-- ============================================================== --
+    elseif OrionLib.Flags["Laser"].Value == true then
+        -- // LASER STRIKE SPAM
+        for _,LaserSSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
+    if LaserSSIM.Name == "S.S.I.M." then
+        if LaserSSIM.TeamColor.BrickColor == PropertiesFolders.LocalPlayer.TeamColor then
+        local ButtonPanel = LaserSSIM.ButtonPanel
         task.wait()
          if ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Tactical Strikes" then
         ButtonPanel["1"].ContextButton:Fire()
@@ -152,32 +148,33 @@ for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
         ButtonPanel["1"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
         else
-        task.wait()
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
         ButtonPanel.Back.ContextButton:Fire()
         end
+        end
     end
 end
-for _,LS in ipairs(workspace.Structures:GetChildren()) do
-    if LS.Name == "S.S.I.M." then
-        for _,GetContext in pairs(LS:GetDescendants()) do
+
+for _,Laser in ipairs(PropertiesFolders.Structures:GetChildren()) do
+    if Laser.Name == "S.S.I.M." then
+        for _,GetContext in ipairs(Laser:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
-                task.wait(0.1)
                 if not PropertiesFolders.Character:FindFirstChild("Laser Strike") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Laser Strike") then
                 if Check:GetAttribute("Hint") == "Take Laser Strike" then
                     
-                    RemoteFolders.ContextButton:FireServer(Check)
-                        end
+                    FilterOne.Laser = Check
                     end
                 end
             end
         end
+    end
+end
+
+RemoteFolders.ContextButton:FireServer(FilterOne.Laser)
+-- ============================================================== --
 end
 end)
 end
-end
-end)()
 
-OrionLib:Init()
-end
+OrionLib:Init()     
