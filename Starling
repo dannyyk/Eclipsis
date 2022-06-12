@@ -3,9 +3,10 @@ local Window = OrionLib:MakeWindow({Name = "Starling v - 0.1", HidePremium = tru
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
+
 local PropertiesFolders = {
-    Structures = Workspace:WaitForChild("Structures"),
-    Resources = Workspace:WaitForChild("Resources"),
+    Structures = Workspace.Structures,
+    Resources = Workspace.Resources,
     LocalPlayer = game.Players.LocalPlayer,
     Character = game.Players.LocalPlayer.Character,
 }
@@ -49,7 +50,6 @@ Auto:AddToggle({
 })
 
 while task.wait(0.5) do
-    pcall(function()
     if OrionLib.Flags["Cruise"].Value == true then
          -- // CRUISE SPAM
         for _,Arsenals in ipairs(PropertiesFolders.Structures:GetChildren()) do
@@ -66,9 +66,11 @@ while task.wait(0.5) do
             RemoteFolders.Sync:FireServer(Arsenal)
             RemoteFolders.ContextButton:FireServer(ButtonPanel["4"].ContextButton)
             else
+                pcall(function()
                 RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
                 ButtonPanel.Back.ContextButton:Fire()
                 RemoteFolders.Sync:FireServer(Arsenal)
+                end)
             end
         end
     end
@@ -108,8 +110,10 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Cruise)
         ButtonPanel["2"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["2"].ContextButton)
         else
+            pcall(function()
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
         ButtonPanel.Back.ContextButton:Fire()
+        end)
         end
         end
     end
@@ -148,8 +152,10 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Orbital)
         ButtonPanel["1"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
         else
+            pcall(function()
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
         ButtonPanel.Back.ContextButton:Fire()
+        end)
         end
         end
     end
@@ -174,7 +180,6 @@ end
 RemoteFolders.ContextButton:FireServer(FilterOne.Laser)
 -- ============================================================== --
 end
-end)
 end
 
 OrionLib:Init()     
