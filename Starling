@@ -1,3 +1,7 @@
+local RunService = game:GetService("RunService")
+local IsStudio = RunService:IsStudio()
+
+if not IsStudio then
 task.wait()
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Starling v - 0.1", HidePremium = true, SaveConfig = true, ConfigFolder = "OrionTest"})
@@ -136,7 +140,6 @@ coroutine.wrap(function()
     while wait(0.5) do
         if OrionLib.Flags["Laser"].Value == true then
              print("Laser Activated.")
-	     
     pcall(function()
 for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if SSIM.Name == "S.S.I.M." then
@@ -153,12 +156,8 @@ for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
         ButtonPanel.Back.ContextButton:Fire()
         end
-	
     end
-    
 end
-
-
 for _,LS in ipairs(workspace.Structures:GetChildren()) do
     if LS.Name == "S.S.I.M." then
         for _,GetContext in pairs(LS:GetDescendants()) do
@@ -174,7 +173,6 @@ for _,LS in ipairs(workspace.Structures:GetChildren()) do
                 end
             end
         end
-	
 end
 end)
 end
@@ -182,3 +180,4 @@ end
 end)()
 
 OrionLib:Init()
+end
