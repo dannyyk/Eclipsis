@@ -1,3 +1,4 @@
+task.wait()
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Starling v - 0.1", HidePremium = true, SaveConfig = true, ConfigFolder = "OrionTest"})
 local Workspace = game:GetService("Workspace")
@@ -24,28 +25,29 @@ Auto:AddToggle({
     Name = "Auto Cruise Missile",
     Default = false,
     Save = true,
-    Flag = "Cruise Spam"
+    Flag = "Cruise"
 })
 
 Auto:AddToggle({
     Name = "Auto Orbital Shield",
     Default = false,
     Save = true,
-    Flag = "Orbital Shield"
+    Flag = "Orbital"
 })
 
 Auto:AddToggle({
     Name = "Auto Laser Strike",
     Default = false,
     Save = true,
-    Flag = "Laser Strike"
+    Flag = "Laser"
 })
 
 coroutine.wrap(function()
 while task.wait(0.5) do
-    if OrionLib.Flags["Cruise Spam"].Value == true then
+    if OrionLib.Flags["Cruise"].Value == true then
+         print("Cruise Activated.")
     pcall(function()
-for _,Arsenals in pairs(PropertiesFolders.Structures:GetChildren()) do
+for _,Arsenals in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if Arsenals.Name == "Arsenal" then
         local ButtonPanel = Arsenals.ButtonPanel
         task.wait()
@@ -68,7 +70,7 @@ end
 
 for _,Cruise in pairs(workspace.Structures:GetChildren()) do
     if Cruise.Name == "Arsenal" then
-        for _,GetContext in pairs(Cruise:GetDescendants()) do
+        for _,GetContext in ipairs(Cruise:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
                 task.wait(0.1)
@@ -89,9 +91,10 @@ end)()
 
 coroutine.wrap(function()
     while wait(0.5) do
-        if OrionLib.Flags["Orbital Shield"].Value == true then
+        if OrionLib.Flags["Orbital"].Value == true then
+            print("Orbital Activated.")
     pcall(function()
-for _,SSIM in pairs(PropertiesFolders.Structures:GetChildren()) do
+for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if SSIM.Name == "S.S.I.M." then
         local ButtonPanel = SSIM.ButtonPanel
         task.wait()
@@ -108,7 +111,7 @@ for _,SSIM in pairs(PropertiesFolders.Structures:GetChildren()) do
         end
     end
 end
-for _,OS in pairs(workspace.Structures:GetChildren()) do
+for _,OS in ipairs(workspace.Structures:GetChildren()) do
     if OS.Name == "S.S.I.M." then
         for _,GetContext in pairs(OS:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
@@ -131,9 +134,11 @@ end)()
 
 coroutine.wrap(function()
     while wait(0.5) do
-        if OrionLib.Flags["Laser Strike"].Value == true then
+        if OrionLib.Flags["Laser"].Value == true then
+             print("Laser Activated.")
+	     
     pcall(function()
-for _,SSIM in pairs(PropertiesFolders.Structures:GetChildren()) do
+for _,SSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if SSIM.Name == "S.S.I.M." then
         local ButtonPanel = SSIM.ButtonPanel
         task.wait()
@@ -148,9 +153,13 @@ for _,SSIM in pairs(PropertiesFolders.Structures:GetChildren()) do
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
         ButtonPanel.Back.ContextButton:Fire()
         end
+	
     end
+    
 end
-for _,LS in pairs(workspace.Structures:GetChildren()) do
+
+
+for _,LS in ipairs(workspace.Structures:GetChildren()) do
     if LS.Name == "S.S.I.M." then
         for _,GetContext in pairs(LS:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
@@ -165,6 +174,7 @@ for _,LS in pairs(workspace.Structures:GetChildren()) do
                 end
             end
         end
+	
 end
 end)
 end
