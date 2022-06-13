@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Starling v - 0.2", HidePremium = true, SaveConfig = true, ConfigFolder = "Starling"})
+local Window = OrionLib:MakeWindow({Name = "Starling v - 0.2", HidePremium = true, SaveConfig = false, ConfigFolder = "Starling"})
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
@@ -24,31 +24,104 @@ local FilterOne = {
 
 local Auto = Window:MakeTab({
 	Name = "Auto's",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://9903807830",
 	PremiumOnly = false
 })
 
 Auto:AddToggle({
     Name = "Auto Cruise Missile",
     Default = false,
-    Save = true,
+    Save = false,
     Flag = "Cruise"
 })
 
 Auto:AddToggle({
     Name = "Auto Orbital Shield",
     Default = false,
-    Save = true,
+    Save = false,
     Flag = "Orbital"
 })
 
 Auto:AddToggle({
     Name = "Auto Laser Strike",
     Default = false,
-    Save = true,
+    Save = false,
     Flag = "Laser"
 })
 
+Auto:AddButton({
+    Name = "Clear Cruise Missile",
+    Callback = function()
+        pcall(function()
+        for _,Cruise in ipairs(PropertiesFolders.Structures:GetChildren()) do
+    if Cruise.Name == "Arsenal" then
+        for _,GetContext in ipairs(Cruise:GetDescendants()) do
+            if tostring(GetContext) == "ContextButton" then
+                local Check = GetContext
+                if Check:GetAttribute("Hint") == "Take Cruise Missile" then
+                    
+                    RemoteFolders.ContextButton:FireServer(Check)
+                    
+                end
+                else
+                    continue
+            end
+        end
+    end
+end
+end)
+    end
+    
+})
+
+Auto:AddButton({
+    Name = "Clear Orbital Shield",
+    Callback = function()
+        pcall(function()
+        for _,Orbital in ipairs(PropertiesFolders.Structures:GetChildren()) do
+            if Orbital.Name == "S.S.I.M." then
+                for _,GetContext in ipairs(Orbital:GetDescendants()) do
+                    if tostring(GetContext) == "ContextButton" then
+                        local Check = GetContext
+                        if Check:GetAttribute("Hint") == "Take Orbital Shield" then
+                            
+                            RemoteFolders.ContextButton:FireServer(Check)
+                            
+                        end
+                    end
+                end
+            end
+        end
+        end)
+    end
+    
+})
+
+Auto:AddButton({
+    Name = "Clear Laser Strike",
+    Callback = function()
+        pcall(function()
+                for _,Laser in ipairs(PropertiesFolders.Structures:GetChildren()) do
+            if Laser.Name == "S.S.I.M." then
+                for _,GetContext in ipairs(Laser:GetDescendants()) do
+                    if tostring(GetContext) == "ContextButton" then
+                        local Check = GetContext
+                        if Check:GetAttribute("Hint") == "Take Laser Strike" then
+                            
+                            RemoteFolders.ContextButton:FireServer(Check)
+                        end
+                        else
+                            continue
+                    end
+                end
+            end
+        end
+        end)
+    end
+    
+})
+
+coroutine.wrap(function()
 while task.wait(0.5) do
     if OrionLib.Flags["Cruise"].Value == true then
          -- // CRUISE SPAM
@@ -210,5 +283,5 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Laser)
 -- ============================================================== --
 end
 end
-
+end)()
 OrionLib:Init()     
