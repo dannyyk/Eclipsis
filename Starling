@@ -57,11 +57,11 @@ while task.wait(0.5) do
             if Arsenals.TeamColor.BrickColor == PropertiesFolders.LocalPlayer.TeamColor then
         local ButtonPanel = Arsenals.ButtonPanel
         task.wait()
-            if ButtonPanel["3"]:WaitForChild("ContextButton") and ButtonPanel["3"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["3"].ContextButton:GetAttribute("Hint") == "Explosives" then
+            if ButtonPanel["3"]:FindFirstChild("ContextButton") and ButtonPanel["3"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["3"].ContextButton:GetAttribute("Hint") == "Explosives" then
             ButtonPanel["3"].ContextButton:Fire()
             RemoteFolders.Sync:FireServer(Arsenal)
             RemoteFolders.ContextButton:FireServer(ButtonPanel["3"].ContextButton)
-            elseif ButtonPanel["4"]:WaitForChild("ContextButton") and ButtonPanel["4"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["4"].ContextButton:GetAttribute("Hint") == "Cruise Missile" then
+            elseif ButtonPanel["4"]:FindFirstChild("ContextButton") and ButtonPanel["4"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["4"].ContextButton:GetAttribute("Hint") == "Cruise Missile" then
             ButtonPanel["4"].ContextButton:Fire()
             RemoteFolders.Sync:FireServer(Arsenal)
             RemoteFolders.ContextButton:FireServer(ButtonPanel["4"].ContextButton)
@@ -103,10 +103,10 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Cruise)
         if OrbitalSSIM.TeamColor.BrickColor == PropertiesFolders.LocalPlayer.TeamColor then
         local ButtonPanel = OrbitalSSIM.ButtonPanel
         task.wait()
-         if ButtonPanel["1"]:WaitForChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Tactical Strikes" then
+         if ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Tactical Strikes" then
         ButtonPanel["1"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
-         elseif ButtonPanel["2"]:WaitForChild("ContextButton") and ButtonPanel["2"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["2"].ContextButton:GetAttribute("Hint") == "Orbital Shield" then
+         elseif ButtonPanel["2"]:FindFirstChild("ContextButton") and ButtonPanel["2"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["2"].ContextButton:GetAttribute("Hint") == "Orbital Shield" then
         ButtonPanel["2"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["2"].ContextButton)
         else
@@ -145,10 +145,10 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Orbital)
         if LaserSSIM.TeamColor.BrickColor == PropertiesFolders.LocalPlayer.TeamColor then
         local ButtonPanel = LaserSSIM.ButtonPanel
         task.wait()
-         if ButtonPanel["1"]:WaitForChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Tactical Strikes" then
+         if ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Tactical Strikes" then
         ButtonPanel["1"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
-         elseif ButtonPanel["1"]:WaitForChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Laser Strike" then
+         elseif ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Laser Strike" then
         ButtonPanel["1"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
         else
