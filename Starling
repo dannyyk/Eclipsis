@@ -1,5 +1,5 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Starling v - 0.1", HidePremium = true, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Starling v - 0.2", HidePremium = true, SaveConfig = true, ConfigFolder = "Starling"})
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
@@ -65,6 +65,13 @@ while task.wait(0.5) do
             ButtonPanel["4"].ContextButton:Fire()
             RemoteFolders.Sync:FireServer(Arsenal)
             RemoteFolders.ContextButton:FireServer(ButtonPanel["4"].ContextButton)
+            
+            elseif ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and string.len(ButtonPanel["1"].ContextButton:GetAttribute("Hint")) == 0 then
+                
+                RemoteFolders.ContextButton:FireServer(ButtonPanel["4"].ContextButton)
+                ButtonPanel["4"].ContextButton:Fire()
+                RemoteFolders.Sync:FireServer(Arsenal)
+                
             else
                 pcall(function()
                 RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
@@ -72,7 +79,9 @@ while task.wait(0.5) do
                 RemoteFolders.Sync:FireServer(Arsenal)
                 end)
             end
-        end
+            end
+            else
+                continue
     end
 end
 
@@ -88,6 +97,8 @@ for _,Cruise in ipairs(PropertiesFolders.Structures:GetChildren()) do
                     
                     end
                 end
+                else
+                    continue
             end
         end
     end
@@ -109,6 +120,12 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Cruise)
          elseif ButtonPanel["2"]:FindFirstChild("ContextButton") and ButtonPanel["2"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["2"].ContextButton:GetAttribute("Hint") == "Orbital Shield" then
         ButtonPanel["2"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["2"].ContextButton)
+        
+        elseif ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and string.len(ButtonPanel["1"].ContextButton:GetAttribute("Hint")) == 0 then
+        
+        ButtonPanel["1"].ContextButton:Fire()
+        RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
+        
         else
             pcall(function()
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
@@ -116,6 +133,8 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Cruise)
         end)
         end
         end
+        else
+            continue
     end
 end
 
@@ -151,6 +170,12 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Orbital)
          elseif ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and ButtonPanel["1"].ContextButton:GetAttribute("Hint") == "Laser Strike" then
         ButtonPanel["1"].ContextButton:Fire()
         RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
+        
+        elseif ButtonPanel["1"]:FindFirstChild("ContextButton") and ButtonPanel["1"].Button.BrickColor ~= BrickColor.new("Persimmon") and string.len(ButtonPanel["1"].ContextButton:GetAttribute("Hint")) == 0 then
+        
+        ButtonPanel["1"].ContextButton:Fire()
+        RemoteFolders.ContextButton:FireServer(ButtonPanel["1"].ContextButton)
+        
         else
             pcall(function()
         RemoteFolders.ContextButton:FireServer(ButtonPanel.Back.ContextButton)
@@ -158,6 +183,8 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Orbital)
         end)
         end
         end
+        else
+            continue
     end
 end
 
@@ -172,6 +199,8 @@ for _,Laser in ipairs(PropertiesFolders.Structures:GetChildren()) do
                     FilterOne.Laser = Check
                     end
                 end
+                else
+                    continue
             end
         end
     end
