@@ -21,6 +21,15 @@ local FilterOne = {
     Cruise
 }
 
+local Credits = Window:MakeTab({
+    Name = "Credits",
+    Icon = "rbxassetid://9903807830",
+    PremiumOnly = false
+})
+Credits:AddLabel("Creator: juloy, self")
+Credits:AddLabel("Tester: Thundercrazydog")
+Credits:AddLabel("Contributor: Thundercrazydog")
+
 
 local PlayerTab = Window:MakeTab({
     Name = "LocalPlayer",
@@ -45,15 +54,6 @@ local SSIM = Window:MakeTab({
     Icon = "rbxassetid://9903807830",
     PremiumOnly = false
 })
-
-local Credits = Window:MakeTab({
-    Name = "Credits",
-    Icon = "rbxassetid://9903807830",
-    PremiumOnly = false
-})
-Credits:AddLabel("Creator: juloy, self")
-Credits:AddLabel("Tester: Thundercrazydog")
-Credits:AddLabel("Contributor: Thundercrazydog")
 
 
 Auto:AddToggle({
@@ -172,6 +172,29 @@ PlayerTab:AddToggle({
         elseif not Value then
            game.Players.LocalPlayer.Character.IridiumTank:SetAttribute("MaxThrustTime", 1)
         end
+    end
+    
+})
+
+Arsenal:AddDropdown({
+    Name = "Get Gun Type: ",
+    Default = "0",
+    Options = {
+    "SMG",
+    "Assault Rifle",
+    "Minigun",
+    "Shotgun",
+    "Sniper Rifle",
+    "Napalm Deployer",
+    "Grenade Launcher",
+    "Rocket Launcher",
+    "Satchel Charge",
+    "Cruise Missile",
+    "Scanner",
+    "Laser Drill"
+        },
+    Callback = function(Value)
+        return
     end
     
 })
@@ -360,4 +383,4 @@ PropertiesFolders.LocalPlayer.CharacterAdded:Connect(function()
 end)
     
 
-OrionLib:Init()     
+OrionLib:Init()  
