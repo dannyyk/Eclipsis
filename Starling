@@ -8,7 +8,6 @@ local PropertiesFolders = {
     Structures = Workspace.Structures,
     Resources = Workspace.Resources,
     LocalPlayer = game.Players.LocalPlayer,
-    Character = game.Players.LocalPlayer.Character,
 }
 
 local RemoteFolders = {
@@ -22,11 +21,40 @@ local FilterOne = {
     Cruise
 }
 
+
+local PlayerTab = Window:MakeTab({
+    Name = "LocalPlayer",
+    Icon = "rbxassetid://9903807830",
+    PremiumOnly = false
+})
+
+local Arsenal = Window:MakeTab({
+    Name = "Arsenal",
+    Icon = "rbxassetid://9903807830",
+    PremiumOnly = false
+})
+
 local Auto = Window:MakeTab({
 	Name = "Auto's",
 	Icon = "rbxassetid://9903807830",
 	PremiumOnly = false
 })
+
+local SSIM = Window:MakeTab({
+    Name = "S.S.I.M.",
+    Icon = "rbxassetid://9903807830",
+    PremiumOnly = false
+})
+
+local Credits = Window:MakeTab({
+    Name = "Credits",
+    Icon = "rbxassetid://9903807830",
+    PremiumOnly = false
+})
+Credits:AddLabel("Creator: juloy, self")
+Credits:AddLabel("Tester: Thundercrazydog")
+Credits:AddLabel("Contributor: Thundercrazydog")
+
 
 Auto:AddToggle({
     Name = "Auto Cruise Missile",
@@ -121,9 +149,36 @@ Auto:AddButton({
     
 })
 
+PlayerTab:AddToggle({
+    Name = "Invincible to Fall Damage, Iridium Damage",
+    Default = false,
+    Save = false,
+    Flag = "WaterFall",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.FallDamageScript.Disabled = Value
+    end
+    
+    
+})
+
+PlayerTab:AddToggle({
+    Name = "Jetpack Thrust",
+    Default = false,
+    Save = false,
+    Flag = "JetpackThrust",
+    Callback = function(Value)
+        if Value then
+           game.Players.LocalPlayer.Character.IridiumTank:SetAttribute("MaxThrustTime", math.huge)
+        elseif not Value then
+           game.Players.LocalPlayer.Character.IridiumTank:SetAttribute("MaxThrustTime", 1)
+        end
+    end
+    
+})
+
 coroutine.wrap(function()
 while task.wait(0.5) do
-    if OrionLib.Flags["Cruise"].Value == true then
+    if OrionLib.Flags["Cruise"].Value then
          -- // CRUISE SPAM
         for _,Arsenals in ipairs(PropertiesFolders.Structures:GetChildren()) do
         if Arsenals.Name == "Arsenal" then
@@ -163,7 +218,7 @@ for _,Cruise in ipairs(PropertiesFolders.Structures:GetChildren()) do
         for _,GetContext in ipairs(Cruise:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
-                if not PropertiesFolders.Character:FindFirstChild("Cruise Missile") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Cruise Missile") then
+                if not game.Players.LocalPlayer.Character:FindFirstChild("Cruise Missile") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Cruise Missile") then
                 if Check:GetAttribute("Hint") == "Take Cruise Missile" then
                     
                     FilterOne.Cruise = Check
@@ -180,7 +235,7 @@ end
 RemoteFolders.ContextButton:FireServer(FilterOne.Cruise)
 -- ============================================================== --
         
-    elseif OrionLib.Flags["Orbital"].Value == true then
+    elseif OrionLib.Flags["Orbital"].Value then
         -- // ORBITAL SHIELD SPAM
         for _,OrbitalSSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if OrbitalSSIM.Name == "S.S.I.M." then
@@ -216,7 +271,7 @@ for _,Orbital in ipairs(PropertiesFolders.Structures:GetChildren()) do
         for _,GetContext in ipairs(Orbital:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
-                if not PropertiesFolders.Character:FindFirstChild("Orbital Shield") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Orbital Shield") then
+                if not game.Players.LocalPlayer.Character:FindFirstChild("Orbital Shield") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Orbital Shield") then
                 if Check:GetAttribute("Hint") == "Take Orbital Shield" then
                     
                     FilterOne.Orbital = Check
@@ -230,7 +285,7 @@ end
 
 RemoteFolders.ContextButton:FireServer(FilterOne.Orbital)
 -- ============================================================== --
-    elseif OrionLib.Flags["Laser"].Value == true then
+    elseif OrionLib.Flags["Laser"].Value then
         -- // LASER STRIKE SPAM
         for _,LaserSSIM in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if LaserSSIM.Name == "S.S.I.M." then
@@ -266,7 +321,7 @@ for _,Laser in ipairs(PropertiesFolders.Structures:GetChildren()) do
         for _,GetContext in ipairs(Laser:GetDescendants()) do
             if tostring(GetContext) == "ContextButton" then
                 local Check = GetContext
-                if not PropertiesFolders.Character:FindFirstChild("Laser Strike") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Laser Strike") then
+                if not game.Players.LocalPlayer.Character:FindFirstChild("Laser Strike") and not PropertiesFolders.LocalPlayer.Backpack:FindFirstChild("Laser Strike") then
                 if Check:GetAttribute("Hint") == "Take Laser Strike" then
                     
                     FilterOne.Laser = Check
@@ -284,4 +339,24 @@ RemoteFolders.ContextButton:FireServer(FilterOne.Laser)
 end
 end
 end)()
+
+
+    
+
+
+PropertiesFolders.LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(1)
+    if OrionLib.Flags["JetpackThrust"].Value then
+        game.Players.LocalPlayer.Character.IridiumTank:SetAttribute("MaxThrustTime", math.huge)
+    end
+    
+    if OrionLib.Flags["WaterFall"].Value then
+    game.Players.LocalPlayer.Character.FallDamageScript.Disabled = true
+    elseif not OrionLib.Flags["WaterFall"].Value then
+        game.Players.LocalPlayer.Character.FallDamageScript.Disabled = false
+    end
+    
+end)
+    
+
 OrionLib:Init()     
