@@ -237,7 +237,7 @@ while task.wait(0.5) do
 end
 
 PlayerTab:AddButton({
-    Name = "Remove Lightings"
+    Name = "Remove Lightings",
     Callback = function()
         
         for i,v in pairs(game.Lighting:GetChildren()) do
