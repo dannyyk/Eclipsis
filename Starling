@@ -199,6 +199,18 @@ Arsenal:AddDropdown({
     
 })
 
+PlayerTab:AddButton({
+    Name = "Remove Lightings",
+    Callback = function()
+        
+        for i,v in pairs(game.Lighting:GetChildren()) do
+            v:Destroy()
+        end
+
+    end
+    
+})
+
 coroutine.wrap(function()
 while task.wait(0.5) do
     if OrionLib.Flags["Cruise"].Value then
@@ -235,18 +247,6 @@ while task.wait(0.5) do
                 continue
     end
 end
-
-PlayerTab:AddButton({
-    Name = "Remove Lightings",
-    Callback = function()
-        
-        for i,v in pairs(game.Lighting:GetChildren()) do
-            v:Destroy()
-        end
-
-    end
-    
-})
 
 for _,Cruise in ipairs(PropertiesFolders.Structures:GetChildren()) do
     if Cruise.Name == "Arsenal" then
