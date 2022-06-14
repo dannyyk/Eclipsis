@@ -162,7 +162,7 @@ PlayerTab:AddToggle({
 })
 
 PlayerTab:AddToggle({
-    Name = "Jetpack Thrust",
+    Name = "Infinite Jetpack Thrust Time",
     Default = false,
     Save = false,
     Flag = "JetpackThrust",
@@ -176,6 +176,7 @@ PlayerTab:AddToggle({
     
 })
 
+PlayerTab:AddLabel("Normal is 17 so all the way to the left.")
 coroutine.wrap(function()
 while task.wait(0.5) do
     if OrionLib.Flags["Cruise"].Value then
